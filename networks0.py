@@ -199,9 +199,13 @@ class rm_vsl_co(object):
         hc = 0
         nox = 0
         pmx = 0
+        em_num = 0
+        co_num = 0
         self.set_vsl(v)
         for i in range(self.control_horizon):
             traci.simulationStep()
+            acc_num += traci.simulation.getEmergencyStoppingVehiclesNumber() 
+            co_num += traci.simulation.getCollidingVehiclesNumber()
             state_overall = state_overall + self.get_step_state()
             inout, outflow = self.calc_outflow()
             rewardio = rewardio + inout # the reward is defined as the outflow 
