@@ -25,7 +25,7 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("Please declare the environment variable 'SUMO_HOME'")
 
-sumoBinary = "/home/tianyushi/sumo_binaries/bin/sumo"
+sumoBinary = "/home/tianyu/code/sumo/bin/sumo"
 sumoConfig = "rl_vsl.sumo.cfg"
 
 # chkpt_dir = 'checkpoints/tianyu_feb_13_net1_lc6/'
@@ -39,9 +39,9 @@ synced_model =  ES(12, 5, 80)
 for param in synced_model.parameters():
     param.requires_grad = False
 
-# train_loop(100000, 0.1, 10, 0.2, 1, synced_model, chkpt_dir)
-state_dict = torch.load(chkpt_dir)  ##train from the previous chkpt?
-synced_model.load_state_dict(state_dict)
+train_loop(100000, 0.1, 10, 0.2, 1, synced_model, chkpt_dir)
+# state_dict = torch.load(chkpt_dir)  ##train from the previous chkpt?
+# synced_model.load_state_dict(state_dict)
 horizon=60
 net = rm_vsl_co(control_horizon=horizon)
 print('control horizon is:',horizon)
@@ -56,7 +56,7 @@ traveltime = 'meanTravelTime='
 h = last_line.index(traveltime)
 aat_tempo = float(last_line[h+16:h+21])
 print( 'NoVSL: Average Travel Time: %.4f' % aat_tempo, 'Total flow: %.4f' % total_flow )
-net.close()
+# net.close()
 print('our model result')
 this_model_return  = 0
 #net_index += 1 ##what this mean?
